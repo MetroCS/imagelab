@@ -2,7 +2,7 @@
 name: User Story
 about: Define a user story or epic
 title: "[UserStory] brief identification of the user story"
-labels: user story
+labels: ''
 assignees: ''
 
 ---
