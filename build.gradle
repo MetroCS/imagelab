@@ -12,6 +12,9 @@ plugins {
 
     // Apply the application plugin to add support for building a CLI application
     id 'application'
+
+    // Apply the jacoco plugin to add support for junit code coverage analysis
+    id 'jacoco'
 }
 
 repositories {
@@ -31,4 +34,34 @@ dependencies {
 application {
     // Define the main class for the application
     mainClassName = 'imagelab.App'
+}
+
+// Define jacoco version to be used
+jacoco {
+    toolVersion = "0.8.4"
+    reportsDir = file("$buildDir/reports/jacoco")
+    applyTo run
+}
+
+// Define file type for structured reports
+jacocoTestReport {
+    reports{
+        xml.enabled false
+        csv.enabled false
+        html.destination file("$buildDir/reports/jacoco")
+    }
+}
+
+// Define coverage pass/fail rules for unit tests
+jacocoTestCoverageVerification {
+    violationRules {
+        rule {
+            element = 'CLASS'
+            limit {
+                counter = "LINE"
+                value = "COVEREDRATIO"
+                minimum = 0.85
+            }
+        }
+    }
 }
