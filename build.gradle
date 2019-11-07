@@ -33,7 +33,7 @@ dependencies {
 
 application {
     // Define the main class for the application
-    mainClassName = 'imagelab.App'
+    mainClassName = 'imagelab.ImageLab'
 }
 
 // Define jacoco version to be used
