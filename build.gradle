@@ -31,9 +31,20 @@ dependencies {
     testImplementation 'junit:junit:4.12'
 }
 
+// Add source code directories
+sourceSets {
+    main {
+        java {
+            srcDir 'imagelab'
+            srcDir 'filters'
+            srcDir 'sound'
+        }
+    }
+}
+
 application {
     // Define the main class for the application
-    mainClassName = 'imagelab.App'
+    mainClassName = 'imagelab.ImageLab'
 }
 
 // Define jacoco version to be used
