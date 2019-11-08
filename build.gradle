@@ -32,42 +32,21 @@ dependencies {
 }
 
 // Add source code directories
-/*
 sourceSets {
     main {
         java {
             srcDir 'imagelab'
+            java.outputDir = file ('imagelab')
+        }
+        java {
             srcDir 'filters'
+            java.outputDir = file ('filters')
+        }
+       java {
             srcDir 'sound'
+            java.outputDir = file ('sound')
         }
     }
-}*/
-
-sourceSets {
-    main {
-        java {
-            srcDir "imagelab"
-            include "sound/*"
-            include "filters/*"
-            java.outputDir = file ("imagelab")
-        }
-    }
-    filters {
-        java {
-            srcDir "filters"
-            include "sound/*"
-            include "imagelab/*"
-            java.outputDir = file ("filters")
-        }
-    }
-    sound {
-        java {
-            srcDir "sound"
-            include "imagelab/*"
-            include "filters/*"
-            java.outputDir = file ("sound")
-        }
-    }    
 }
 
 application {
