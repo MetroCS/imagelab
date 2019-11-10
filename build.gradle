@@ -37,14 +37,24 @@ sourceSets {
         java {
             srcDir 'imagelab'
             java.outputDir = file ('imagelab')
+            include "filters/*.java"
+            include "sound/*.java"
         }
+    }
+    filters {
         java {
             srcDir 'filters'
             java.outputDir = file ('filters')
+            include "imagelab/*.java"
+            include "sound/*.java"
         }
-       java {
+    }
+    sound {
+        java {
             srcDir 'sound'
             java.outputDir = file ('sound')
+            include "imagelab/*.java"
+            include "filters/*.java"
         }
     }
 }
