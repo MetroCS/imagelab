@@ -35,6 +35,7 @@ dependencies {
     compile 'junit:junit:4.12'
 }
 
+/*
 // Add source code directories
 sourceSets {
     main {
@@ -62,6 +63,17 @@ sourceSets {
             include "imagelab/*.java"
             include "filters/*.java"
             include "sound/*.java"
+        }
+    }
+}*/
+
+// Add source code directories
+sourceSets {
+    main {
+        java {
+            srcDir 'imagelab'
+            srcDir 'filters'
+            srcDir 'sound'
         }
     }
 }
@@ -100,3 +112,8 @@ jacocoTestCoverageVerification {
         }
     }
 }
+
+task copy(type: Copy) {
+        from ('build/classes/java/main/filters')
+        into 'filters/'
+    }
