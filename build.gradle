@@ -81,7 +81,7 @@ jacocoTestCoverageVerification {
 
 /* moveClassFilesToRootDirs will move all compiled 
 ** .class files to their corresponding root directory.
-** Moving the files to thier corresponding root
+** Moving the files to their corresponding root
 ** directory is necessary for mimicking BlueJ's 
 ** convention as the project is designed to search 
 ** the root directories for .class files. 
@@ -117,7 +117,7 @@ task removeClassFilesFromRootDirs {
         include "*.class"
     }
     delete fileTree("imagelab").matching {
-    include "*.class"
+        include "*.class"
     }
     delete fileTree("sound").matching {
         include "*.class"
