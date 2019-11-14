@@ -104,7 +104,7 @@ task moveClassFilesToRootDirs {
     }
 }
 // List the tasks to be executed within moveClassFilesToRootDirs task
-moveClassFilesToRootDirs.dependsOn copyFilterClassFiles//, copyImagelabClassFiles, copySoundClassFiles
+moveClassFilesToRootDirs.dependsOn copyFilterClassFiles, copyImagelabClassFiles, copySoundClassFiles
 moveClassFilesToRootDirs.finalizedBy removeBuildClassesDir
 
 run.dependsOn copyFilterClassFiles
