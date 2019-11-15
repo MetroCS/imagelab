@@ -39,7 +39,7 @@ dependencies {
 sourceSets {
     main {
         java {
-            srcDirs('imagelab','filters','sound')
+            srcDirs('imagelab','filters','sound','/')
         }
     }
 }
@@ -99,13 +99,17 @@ task moveClassFilesToRootDirs {
         from ('build/classes/java/main/sound')
         into 'sound/'
     }
+    task copyRunClassFiles(type: Copy) {
+        from ('build/classes/java/main')
+        into '/'
+    }
     task removeBuildClassesDir(type: Delete) {
         delete 'build/classes'
     }
 }
 // List the tasks to be executed within moveClassFilesToRootDirs task
-moveClassFilesToRootDirs.dependsOn copyFilterClassFiles, copyImagelabClassFiles, copySoundClassFiles
-moveClassFilesToRootDirs.finalizedBy removeBuildClassesDir
+moveClassFilesToRootDirs.dependsOn copyFilterClassFiles, copyImagelabClassFiles, copySoundClassFiles, copyRunClassFiles
+//moveClassFilesToRootDirs.finalizedBy removeBuildClassesDir
 
 run.dependsOn copyFilterClassFiles
 build.finalizedBy moveClassFilesToRootDirs
