@@ -46,7 +46,7 @@ sourceSets {
 
 application {
     // Define the main class for the application
-    mainClassName = 'imagelab.ImageLab'
+    mainClassName = 'Run'
 }
 
 // Define jacoco version to be used
