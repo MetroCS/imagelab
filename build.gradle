@@ -99,8 +99,12 @@ task moveClassFilesToRootDirs {
         from ('build/classes/java/main/sound')
         into 'sound/'
     }
-    task copyRunClassFiles(type: Copy) {
+    task copyRunClassFile(type: Copy) {
         from ('build/classes/java/main')
+        into '/'
+    }
+    task copyImageLabJarFile(type: Copy) {
+        from ('build/libs')
         into '/'
     }
     task removeBuildClassesDir(type: Delete) {
@@ -108,7 +112,8 @@ task moveClassFilesToRootDirs {
     }
 }
 // List the tasks to be executed within moveClassFilesToRootDirs task
-moveClassFilesToRootDirs.dependsOn copyFilterClassFiles, copyImagelabClassFiles, copySoundClassFiles, copyRunClassFiles
+moveClassFilesToRootDirs.dependsOn copyFilterClassFiles, copyImagelabClassFiles, 
+copySoundClassFiles, copyRunClassFile, copyImageLabJarFile
 moveClassFilesToRootDirs.finalizedBy removeBuildClassesDir
 
 run.dependsOn copyFilterClassFiles
