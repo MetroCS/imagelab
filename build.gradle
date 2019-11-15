@@ -109,7 +109,7 @@ task moveClassFilesToRootDirs {
 }
 // List the tasks to be executed within moveClassFilesToRootDirs task
 moveClassFilesToRootDirs.dependsOn copyFilterClassFiles, copyImagelabClassFiles, copySoundClassFiles, copyRunClassFiles
-//moveClassFilesToRootDirs.finalizedBy removeBuildClassesDir
+moveClassFilesToRootDirs.finalizedBy removeBuildClassesDir
 
 run.dependsOn copyFilterClassFiles
 build.finalizedBy moveClassFilesToRootDirs
@@ -125,6 +125,9 @@ task removeClassFilesFromRootDirs {
     }
     delete fileTree("sound").matching {
         include "*.class"
+    }
+    delete fileTree("/").matching {
+        include "Run.class"
     }
 }
 clean.finalizedBy removeClassFilesFromRootDirs
