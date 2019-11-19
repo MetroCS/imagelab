@@ -110,11 +110,14 @@ task moveClassFilesToRootDirs {
     task removeBuildClassesDir(type: Delete) {
         delete 'build/classes'
     }
+    task removeBuildLibsDir(type: Delete) {
+        delete 'build/libs'
+    }
 }
 // List the tasks to be executed within moveClassFilesToRootDirs task
 moveClassFilesToRootDirs.dependsOn copyFilterClassFiles, copyImagelabClassFiles, 
 copySoundClassFiles, copyRunClassFile, copyImageLabJarFile
-moveClassFilesToRootDirs.finalizedBy removeBuildClassesDir
+moveClassFilesToRootDirs.finalizedBy removeBuildClassesDir, removeBuildLibsDir
 
 run.dependsOn copyFilterClassFiles
 build.finalizedBy moveClassFilesToRootDirs
