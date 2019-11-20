@@ -39,14 +39,14 @@ dependencies {
 sourceSets {
     main {
         java {
-            srcDirs('imagelab','filters','sound')
+            srcDirs('imagelab','filters','sound',"${project.projectDir}")
         }
     }
 }
 
 application {
     // Define the main class for the application
-    mainClassName = 'imagelab.ImageLab'
+    mainClassName = 'Run'
 }
 
 // Define jacoco version to be used
@@ -99,13 +99,25 @@ task moveClassFilesToRootDirs {
         from ('build/classes/java/main/sound')
         into 'sound/'
     }
+    task copyRunClassFile(type: Copy) {
+        from ('build/classes/java/main')
+        into "${project.projectDir}"
+    }
+    task copyImageLabJarFile(type: Copy) {
+        from ('build/libs')
+        into "${project.projectDir}"
+    }
     task removeBuildClassesDir(type: Delete) {
         delete 'build/classes'
     }
+    task removeBuildLibsDir(type: Delete) {
+        delete 'build/libs'
+    }
 }
 // List the tasks to be executed within moveClassFilesToRootDirs task
-moveClassFilesToRootDirs.dependsOn copyFilterClassFiles, copyImagelabClassFiles, copySoundClassFiles
-moveClassFilesToRootDirs.finalizedBy removeBuildClassesDir
+moveClassFilesToRootDirs.dependsOn copyFilterClassFiles, copyImagelabClassFiles, 
+copySoundClassFiles, copyRunClassFile, copyImageLabJarFile
+moveClassFilesToRootDirs.finalizedBy removeBuildClassesDir, removeBuildLibsDir
 
 run.dependsOn copyFilterClassFiles
 build.finalizedBy moveClassFilesToRootDirs
@@ -121,6 +133,9 @@ task removeClassFilesFromRootDirs {
     }
     delete fileTree("sound").matching {
         include "*.class"
+    }
+    delete fileTree("${project.projectDir}").matching {
+        include "Run.class"
     }
 }
 clean.finalizedBy removeClassFilesFromRootDirs
