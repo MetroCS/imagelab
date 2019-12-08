@@ -24,7 +24,7 @@ Make sure the **filters** directory is in the same directory as the **imagelab.j
 
 ImageLab: [imagelab.zip](https://github.com/MetroCS/imagelab/releases/download/v1.8.2/imagelab.zip)
 
-ImageLab application only:  [imagelab.jar](https://github.com/MetroCS/imagelab/releases/download/imagelab.jar)
+ImageLab application only:  [imagelab.jar](https://github.com/MetroCS/imagelab/releases/download/v1.8.2/imagelab.jar)
 
 ## License
 
