@@ -3,7 +3,7 @@
 ImageLab is a framework and application that allows students to develop image modification processors (filters)
 and to experience the results visually and aurally.
 
-The ImageLab application is provided in an **ImageLab.jar** file.
+The ImageLab application is provided in an **imagelab.jar** file.
 
 An associated **filters** package is provided as a folder with source (.java) and compiled (.class) files.
 The source versions serve as examples for students to write their own filters.
@@ -14,15 +14,15 @@ A sample set of images are provided in an **images** directory.
 
 To run ImageLab from the command line:
 
-Make sure the **filters** directory is in the same directory as the **ImageLab.jar** file. Then issue the command,
+Make sure the **filters** directory is in the same directory as the **imagelab.jar** file. Then issue the command,
 
-```java -cp ".:ImageLab.jar" Run```
+```java -cp ".:imagelab.jar" Run```
 
 (Note that on Windows platforms, the ":" character in the classpath must be changed to the ";" character.)
 
 ## Downloads
 
-ImageLab:  [ImageLab.jar](https://github.com/MetroCS/imagelab/releases/download/ImageLab.jar)
+ImageLab:  [imagelab.jar](https://github.com/MetroCS/imagelab/releases/download/imagelab.jar)
 
 Filters:  [filters](https://github.com/MetroCS/imagelab/releases/download/filters)
 
