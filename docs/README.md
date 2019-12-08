@@ -14,17 +14,19 @@ A sample set of images are provided in an **images** directory.
 
 To run ImageLab from the command line:
 
-Make sure the **filters** directory is in the same directory as the **imagelab.jar** file. Then issue the command,
+* Make sure the **filters** directory is _in the same directory_ as the **imagelab.jar** file.
 
-```java -cp ".:imagelab.jar" Run```
-
+* Then issue the command  
+```java -jar imagelab.jar```  
+or  
+```java -cp ".:imagelab.jar" Run```  
 (Note that on Windows platforms, the ":" character in the classpath must be changed to the ";" character.)
 
 ## Downloads
 
-ImageLab: [imagelab.zip](https://github.com/MetroCS/imagelab/releases/download/v1.8.2/imagelab.zip)
+ImageLab: [imagelab.zip](https://github.com/MetroCS/imagelab/releases/download/v1.8.3/imagelab_v1_8_3.zip)
 
-ImageLab application only:  [imagelab.jar](https://github.com/MetroCS/imagelab/releases/download/v1.8.2/imagelab.jar)
+ImageLab application only:  [imagelab.jar](https://github.com/MetroCS/imagelab/releases/download/v1.8.3/imagelab.jar)
 
 ## License
 
