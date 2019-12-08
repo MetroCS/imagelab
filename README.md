@@ -4,22 +4,24 @@ ImageLab is a framework that allows students to develop
 image modification processors (filters) and to experience
 the results visually and aurally.
 
+## Contents
 The __imagelab__ and __sound__ packages may be provided in an `imagelab.jar` file.
 The `imagelab.jar` file also includes the class __Run__ with a `public static void main` method in the unnamed package, used to facilitate running the ImageLab application.
 (This version may also be used directly as a [BlueJ](http://bluej.org) project.)
 
 The __filter__ package is generally provided as a folder with source (`.java`) and compiled (`.class`) files, with the source versions serving as examples for students.
 
-A sample set of images are provided in an "images" directory.
+A sample set of images are provided in an __"images"__ directory.
 
-To use from command line:  
-Make sure the "filters" directory is in the same directory as the imagelab.jar file.  Then issue the command,
-
-`java -cp ".:imagelab.jar" Run`
-
+## To use from command line:  
+* Make sure the __filters__ directory is _in the same directory_ as the __imagelab.jar__ file.
+* Then issue the command  
+`java -jar imagelab.jar`  
+or  
+`java -cp ".:imagelab.jar" Run`  
 Note that on Windows platforms, the ":" character in the classpath must be changed to the ";" character.
 
-### License
+## License
 
 ImageLab is a framework for student exploration of image processing.  
 Copyright (C) 2016,2019 by Aaron Gordon & Jody Paul  
