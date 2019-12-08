@@ -21,7 +21,7 @@ import imagelab.ImageLab;
  * Run the ImageLab application.
  * @author Aaron Gordon
  * @author Jody Paul
- * @version 1.1
+ * @version 1.8.2
  */
 public class Run {
     public static void main(String[] args) {
