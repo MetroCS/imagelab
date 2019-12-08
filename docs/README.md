@@ -1,25 +1,37 @@
 # ImageLab
 
-ImageLab is a framework that allows students to develop image modification processors (filters)
+ImageLab is a framework and application that allows students to develop image modification processors (filters)
 and to experience the results visually and aurally.
 
-The imagelab and sound packages may be provided in an imagelab.jar file. The imagelab.jar file also includes the class Run with a public static void main method in the unnamed package, used to facilitate running the ImageLab application. (This version may also be used directly as a BlueJ project.)
+The ImageLab application is provided in an **ImageLab.jar** file.
 
-The filter package is generally provided as a folder with source (.java) and compiled (.class) files, with the source versions serving as examples for students.
+An associated **filters** package is provided as a folder with source (.java) and compiled (.class) files.
+The source versions serve as examples for students to write their own filters.
 
-A sample set of images are provided in an "images" directory.
+A sample set of images are provided in an **images** directory.
 
-To use from command line:
-Make sure the "filters" directory is in the same directory as the imagelab.jar file. Then issue the command,
+## Usage
 
-java -cp ".:imagelab.jar" Run
+To run ImageLab from the command line:
 
-Note that on Windows platforms, the ":" character in the classpath must be changed to the ";" character.
+Make sure the **filters** directory is in the same directory as the **ImageLab.jar** file. Then issue the command,
 
-License
+```java -cp ".:ImageLab.jar" Run```
 
-ImageLab is a framework for student exploration of image processing.
-Copyright (C) 2016,2019 by Aaron Gordon & Jody Paul
+(Note that on Windows platforms, the ":" character in the classpath must be changed to the ";" character.)
+
+## Downloads
+
+ImageLab:  [ImageLab.jar](https://github.com/MetroCS/imagelab/releases/download/ImageLab.jar)
+
+Filters:  [filters](https://github.com/MetroCS/imagelab/releases/download/filters)
+
+Images:  [images](https://github.com/MetroCS/imagelab/releases/download/images)
+
+## License
+
+ImageLab is a framework for student exploration of image processing.  
+Copyright (C) 2016,2019 by Aaron Gordon & Jody Paul  
 The software comes with ABSOLUTELY NO WARRANTY.
 
 This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
