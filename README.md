@@ -17,7 +17,8 @@ A sample set of images are provided in an __"images"__ directory.
 * Make sure the __filters__ directory is _in the same directory_ as the __imagelab.jar__ file.
 * Then issue the command  
 `java -jar imagelab.jar`  
-or  
+  
+An alternative command is:
 `java -cp ".:imagelab.jar" Run`  
 Note that on Windows platforms, the ":" character in the classpath must be changed to the ";" character.
 
