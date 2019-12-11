@@ -18,13 +18,15 @@ To run ImageLab from the command line:
 
 * Then issue the command  
 ```java -jar imagelab.jar```  
-or  
+ 
+ 
+An alternative command is: 
 ```java -cp ".:imagelab.jar" Run```  
-(Note that on Windows platforms, the ":" character in the classpath must be changed to the ";" character.)
+ Note that on Windows platforms, the ":" character in the classpath must be changed to the ";" character.)
 
 ## Downloads
 
-ImageLab: [imagelab.zip](https://github.com/MetroCS/imagelab/releases/download/v1.8.3/imagelab_v1_8_3.zip)
+ImageLab: [imagelab.zip](https://github.com/MetroCS/imagelab/releases/download/v1.8.3/imagelab.zip)
 
 ImageLab application only:  [imagelab.jar](https://github.com/MetroCS/imagelab/releases/download/v1.8.3/imagelab.jar)
 
@@ -38,4 +40,4 @@ This program is free software: you can redistribute it and/or modify it under th
 
 This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
-You should have received a copy of the GNU General Public License along with this program. If not, see https://www.gnu.org/licenses/
+You should have received a copy of the GNU General Public License along with this program. If not, see (https://www.gnu.org/licenses/)
