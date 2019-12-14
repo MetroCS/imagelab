@@ -171,7 +171,7 @@ public class ImageLab {
                         isFilter |= interfaces[j].getName().equals("imagelab.ImageFilter");
                     }//for ja
                     if (isFilter) {
-                        ifilter = (ImageFilter) cl.newInstance();
+                        ifilter = (ImageFilter) cl.getDeclaredConstructor().newInstance();
                         //System.out.println("This is the one: " + fil[k].getName());
                         filters.add(ifilter);
                         JMenuItem jmi = new JMenuItem(ifilter.getMenuLabel());

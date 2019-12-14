@@ -26,7 +26,7 @@ public class Scale {
      *  @param newPitch the pitch to add
      */
     public void addPitch(int midiPitch) {
-        addPitch(new Integer(midiPitch));
+        addPitch(Integer.valueOf(midiPitch));
     }
 
     /**
