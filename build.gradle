@@ -12,6 +12,9 @@ plugins {
 
     // Apply the jacoco plugin to add support for junit code coverage analysis
     id 'jacoco'
+
+    // Apply the checkstyle plugin to add support for adherence to coding conventions
+    id 'checkstyle'
 }
 
 repositories {
@@ -85,6 +88,19 @@ jacocoTestCoverageVerification {
         }
     }
 } 
+
+task checkstyle(type: Checkstyle, dependsOn: ['checkstyleMain', 'checkstyleTest']) {
+    group 'Verification'
+    description 'Generates reports from Checkstyle.'
+}
+
+tasks.withType(Checkstyle) {
+    ignoreFailures = true
+    reports {
+        xml.enabled false
+        html.enabled true
+    }
+}
 
 /* moveClassFilesToRootDirs will move all compiled 
 ** .class files to their corresponding root directory.
