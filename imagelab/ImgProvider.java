@@ -18,7 +18,7 @@ import java.io.*;
 public class ImgProvider extends JComponent {
     /** Serialization version. */
     private static final long serialVersionUID = 11L;
-
+    static Thread playThread;
     static boolean  all;
     /** true if this ImgProvider currently holds an image; false otherwise. */
     boolean         isLoaded;
@@ -398,74 +398,83 @@ public class ImgProvider extends JComponent {
      * of the Red, Green and Blue notes respectively.
      */
     public void play() {
-        short[][] red = getRed();     // Red plane
-        short[][] green = getGreen(); // Green plane
-        short[][] blue = getBlue();   // Blue plane
-        short[][] bw = getBWImage();  // Black & white image
-        short[][] alpha = getAlpha(); // Alpha channel
-        short[][] hue;
-        short[][] saturation;
-        short[][] brightness;
-   
-        int height = bw.length;
-        int width  = bw[0].length;
-    
-        //System.out.println("Playing image number " + getid());
-        
-        Tune tune = new Tune();
-        /* A 7-octave pentatonic scale. */
-        Scale scale = new Scale();
-        for (int i = -3; i < 4; i++) {
-            scale.addPitch( Note.C       + (12 * i));
-            scale.addPitch((Note.C + 3)  + (12 * i));
-            scale.addPitch((Note.C + 5)  + (12 * i));
-            scale.addPitch((Note.C + 7)  + (12 * i));
-            scale.addPitch((Note.C + 10) + (12 * i));
-        }
-        int pitchRange = scale.numPitches();
-        Chord chord;
-        int[] velocity = {0, 0, 0};
-        int velocityRange = Note.VRANGE;
-        int tempo = Note.DE/2;
-        int rowSum = 0;
-        int redSum = 0;
-        int greenSum = 0;
-        int blueSum = 0;
-        float[] hsb = {0, 0, 0};
-        float hueSum = 0;
-        float satSum = 0;
-        float brtSum = 0;
-        
-        for (int row = 0; row < height; row++) {
-            for (int column=0; column < width; column++) {
-                rowSum += (bw[row][column]);
-                redSum += (red[row][column]);
-                greenSum += (green[row][column]);
-                blueSum += (blue[row][column]);
-                java.awt.Color.RGBtoHSB(red[row][column],green[row][column],blue[row][column],hsb);
-                hueSum += hsb[0];
-                satSum += hsb[1];
-                brtSum += hsb[2];
-            }//for column
-            velocity[0] = (int)(Note.VPP + (velocityRange * (hueSum / width)));
-            velocity[1] = (int)(Note.VPP + (velocityRange * (satSum / width)));
-            velocity[2] = (int)(Note.VPP + (velocityRange * (brtSum / width)));
-            chord = new Chord();
-            chord.addNote(new Note(0, (scale.getPitch(pitchRange *   redSum / width / 256)), tempo, velocity[0]));
-            chord.addNote(new Note(1, (scale.getPitch(pitchRange * greenSum / width / 256)), tempo, velocity[1]));
-            chord.addNote(new Note(2, (scale.getPitch(pitchRange *  blueSum / width / 256)), tempo, velocity[2]));
-            tune.addChord(chord);
-            rowSum = 0;
-            redSum = 0;
-            greenSum = 0;
-            blueSum = 0;
-            hueSum = 0;
-            satSum = 0;
-            brtSum = 0;
-        }//for row
-        int[] instruments = {Note.Vibes, Note.Pizzacatto, Note.MelodicTom};
-        Music m = new Music(3, instruments);
-        m.playTune(tune);
+        playThread = new Thread(() -> {
+            short[][] red = getRed();     // Red plane
+            short[][] green = getGreen(); // Green plane
+            short[][] blue = getBlue();   // Blue plane
+            short[][] bw = getBWImage();  // Black & white image
+            short[][] alpha = getAlpha(); // Alpha channel
+            short[][] hue;
+            short[][] saturation;
+            short[][] brightness;
+
+            int height = bw.length;
+            int width = bw[0].length;
+
+            //System.out.println("Playing image number " + getid());
+
+            Tune tune = new Tune();
+            /* A 7-octave pentatonic scale. */
+            Scale scale = new Scale();
+            for (int i = -3; i < 4; i++) {
+                scale.addPitch(Note.C + (12 * i));
+                scale.addPitch((Note.C + 3) + (12 * i));
+                scale.addPitch((Note.C + 5) + (12 * i));
+                scale.addPitch((Note.C + 7) + (12 * i));
+                scale.addPitch((Note.C + 10) + (12 * i));
+            }
+            int pitchRange = scale.numPitches();
+            Chord chord;
+            int[] velocity = {0, 0, 0};
+            int velocityRange = Note.VRANGE;
+            int tempo = Note.DE / 2;
+            int rowSum = 0;
+            int redSum = 0;
+            int greenSum = 0;
+            int blueSum = 0;
+            float[] hsb = {0, 0, 0};
+            float hueSum = 0;
+            float satSum = 0;
+            float brtSum = 0;
+
+            for (int row = 0; row < height; row++) {
+                for (int column = 0; column < width; column++) {
+                    rowSum += (bw[row][column]);
+                    redSum += (red[row][column]);
+                    greenSum += (green[row][column]);
+                    blueSum += (blue[row][column]);
+                    java.awt.Color
+                            .RGBtoHSB(red[row][column], green[row][column], blue[row][column],
+                                      hsb);
+                    hueSum += hsb[0];
+                    satSum += hsb[1];
+                    brtSum += hsb[2];
+                }//for column
+                velocity[0] = (int) (Note.VPP + (velocityRange * (hueSum / width)));
+                velocity[1] = (int) (Note.VPP + (velocityRange * (satSum / width)));
+                velocity[2] = (int) (Note.VPP + (velocityRange * (brtSum / width)));
+                chord = new Chord();
+                chord.addNote(new Note(0, (scale.getPitch(
+                        pitchRange * redSum / width / 256)), tempo, velocity[0]));
+                chord.addNote(new Note(1, (scale.getPitch(pitchRange * greenSum / width / 256)), tempo,
+                                       velocity[1]));
+                chord.addNote(new Note(2, (scale.getPitch(
+                        pitchRange * blueSum / width / 256)), tempo, velocity[2]));
+                tune.addChord(chord);
+                rowSum = 0;
+                redSum = 0;
+                greenSum = 0;
+                blueSum = 0;
+                hueSum = 0;
+                satSum = 0;
+                brtSum = 0;
+            }//for row
+            int[] instruments = {Note.Vibes, Note.Pizzacatto, Note.MelodicTom};
+            Music m = new Music(3, instruments);
+            m.playTune(tune);
+        });
+        playThread.start();
+
     }
     
     /**
