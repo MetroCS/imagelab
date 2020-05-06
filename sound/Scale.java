@@ -6,14 +6,33 @@ import java.util.Iterator;
 /**
  * A musical scale.
  * Comprised of an ordered set of pitches (midi note numbers).
- * 
  * @author Dr. Jody Paul
  * @version 1.2
  */
-public class Scale {
+ public class Scale {
     /** The pitches for this tune. */
     private List<Integer> scalePitches;
-    
+    /** Max offset to low frequency keys. */
+    private static final int OCTAVE_START_OFFSET = -3;
+    /** Max offset to high frequency keys. */
+    private static final int OCTAVE_END_OFFSET = 4;
+    /** The factor to move between octaves. */
+    private static final int  OCTAVE_FACTOR = 12;
+    /** The number of semitones in a minor seventh interval. */
+    private static final int MINOR_SEVENTH = 10;
+    /** The number of semitones in a major sixth interval. */
+    private static final int MAJOR_SIXTH = 9;
+    /** The number of semitones in a perfect fifth interval. */
+    private static final int PERFECT_FIFTH = 7;
+    /** The number of semitones in a perfect fourth interval. */
+    private static final int PERFECT_FOURTH = 5;
+    /** The number of semitones in a major third interval. */
+    private static final int MAJOR_THIRD = 4;
+    /** The number of semitones in a minor third interval. */
+    private static final int MINOR_THIRD = 3;
+    /** The number of semitones in a major second interval. */
+    private static final int MAJOR_SECOND = 2;
+
     /**
      * Construct an empty Scale.
      */
@@ -23,27 +42,28 @@ public class Scale {
 
     /**
      *  Add a pitch to the end of this scale.
-     *  @param newPitch the pitch to add
+     *  @param midiPitch the pitch to add
      */
-    public void addPitch(int midiPitch) {
+    public void addPitch(final int midiPitch) {
         addPitch(Integer.valueOf(midiPitch));
     }
 
     /**
      *  Add a pitch to the end of this scale.
-     *  @param newPitch the pitch to add
+     *  @param midiPitch the pitch to add
      */
-    public void addPitch(Integer midiPitch) {
+    public void addPitch(final Integer midiPitch) {
         scalePitches.add(midiPitch);
     }
 
     /**
      *  Access a specified pitch in this scale.
-     *  The index used is the parameter modulo the number of pitches in the scale.
+     *  The index used is the parameter modulo
+     *  the number of pitches in the scale.
      *  @param whichPitch the index of the pitch to retrieve
      *  @return the pitch in the scale as specified by the parameter
      */
-    public Integer getPitch(int whichPitch) {
+    public Integer getPitch(final int whichPitch) {
         return scalePitches.get(whichPitch % numPitches());
     }
 
@@ -62,21 +82,21 @@ public class Scale {
     public int numPitches() {
         return scalePitches.size();
     }
-    
+
     /**
      * Create a 7-octave Pentatonic scale.
      * @return a pentationic scale
      */
     public static Scale pentatonic1() {
         Scale s = new Scale();
-        for (int i = -3; i < 4; i++) {
-            s.addPitch( Note.C      + (12 * i));
-            s.addPitch((Note.C + 2) + (12 * i));
-            s.addPitch((Note.C + 5) + (12 * i));
-            s.addPitch((Note.C + 7) + (12 * i));
-            s.addPitch((Note.C + 9) + (12 * i));
+        for (int i = OCTAVE_START_OFFSET; i < OCTAVE_END_OFFSET; i++) {
+            s.addPitch(Note.C + (OCTAVE_FACTOR * i));
+            s.addPitch((Note.C + MAJOR_SECOND) + (OCTAVE_FACTOR * i));
+            s.addPitch((Note.C + PERFECT_FOURTH) + (OCTAVE_FACTOR * i));
+            s.addPitch((Note.C + PERFECT_FIFTH) + (OCTAVE_FACTOR * i));
+            s.addPitch((Note.C + MAJOR_SIXTH) + (OCTAVE_FACTOR * i));
         }
-        s.addPitch((Note.C + (12 * 4)));
+        s.addPitch((Note.C + (OCTAVE_FACTOR * OCTAVE_END_OFFSET)));
         return s;
     }
 
@@ -86,28 +106,31 @@ public class Scale {
      */
     public static Scale pentatonic2() {
         Scale s = new Scale();
-        for (int i = -3; i < 4; i++) {
-            s.addPitch( Note.C       + (12 * i));
-            s.addPitch((Note.C + 3)  + (12 * i));
-            s.addPitch((Note.C + 5)  + (12 * i));
-            s.addPitch((Note.C + 7)  + (12 * i));
-            s.addPitch((Note.C + 10) + (12 * i));
+        for (int i = OCTAVE_START_OFFSET; i < OCTAVE_END_OFFSET; i++) {
+            s.addPitch(Note.C + (OCTAVE_FACTOR * i));
+            s.addPitch((Note.C + MINOR_THIRD)  + (OCTAVE_FACTOR * i));
+            s.addPitch((Note.C + PERFECT_FOURTH)  + (OCTAVE_FACTOR * i));
+            s.addPitch((Note.C + PERFECT_FIFTH)  + (OCTAVE_FACTOR * i));
+            s.addPitch((Note.C + MINOR_SEVENTH) + (OCTAVE_FACTOR * i));
         }
-        s.addPitch((Note.C + (12 * 4)));
+        s.addPitch((Note.C + (OCTAVE_FACTOR * OCTAVE_END_OFFSET)));
         return s;
     }
 
-    /** Yet another 7-octave Pentatonic scale. */
+    /**
+     * Yet another 7-octave Pentatonic scale.
+     * @return a pentatonic scale
+     */
     public static Scale pentatonic3() {
         Scale s = new Scale();
-        for (int i = -3; i < 4; i++) {
-            s.addPitch( Note.C      + (12 * i));
-            s.addPitch((Note.C + 2) + (12 * i));
-            s.addPitch((Note.C + 4) + (12 * i));
-            s.addPitch((Note.C + 7) + (12 * i));
-            s.addPitch((Note.C + 9) + (12 * i));
+        for (int i = OCTAVE_START_OFFSET; i < OCTAVE_END_OFFSET; i++) {
+            s.addPitch(Note.C + (OCTAVE_FACTOR * i));
+            s.addPitch((Note.C + MAJOR_SECOND) + (OCTAVE_FACTOR * i));
+            s.addPitch((Note.C + MAJOR_THIRD) + (OCTAVE_FACTOR * i));
+            s.addPitch((Note.C + PERFECT_FIFTH) + (OCTAVE_FACTOR * i));
+            s.addPitch((Note.C + MAJOR_SIXTH) + (OCTAVE_FACTOR * i));
         }
-        s.addPitch((Note.C + (12 * 4)));
+        s.addPitch((Note.C + (OCTAVE_FACTOR * OCTAVE_END_OFFSET)));
         return s;
     }
 

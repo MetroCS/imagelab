@@ -23,7 +23,7 @@ public class Chord {
      * Construct a chord with one note.
      * @param oneNote the note of the chord
      */
-    public Chord(Note oneNote) {
+    public Chord(final Note oneNote) {
         this.notes = new ArrayList<Note>();
         addNote(oneNote);
     }
@@ -33,7 +33,7 @@ public class Chord {
      * number of voices, comprised of no notes.
      * @param numVoices the number of voices
      */
-    public Chord(int numVoices) {
+    public Chord(final int numVoices) {
         this.notes = new ArrayList<Note>(numVoices);
     }
 
@@ -41,7 +41,7 @@ public class Chord {
      * Shallow copy constructor.
      * @param orig the chord to be replicated
      */
-    public Chord(Chord orig) {
+    public Chord(final Chord orig) {
         this.notes = new ArrayList<Note>(orig.notes);
     }
 
@@ -49,7 +49,7 @@ public class Chord {
      * Add a note to this chord.
      * @param newNote the note to add
      */
-    public void addNote(Note newNote) {
+    public void addNote(final Note newNote) {
         this.notes.add(newNote);
     }
 
@@ -60,14 +60,13 @@ public class Chord {
     public int numVoices() {
         return this.notes.size();
     }
-    
 
     /**
      * Access the note of the specified voice.
      * @param voiceNum the intended voice number
      * @return the indicated note
      */
-    public Note getVoiceNote(int voiceNum) {
+    public Note getVoiceNote(final int voiceNum) {
         return this.notes.get(voiceNum);
     }
 
