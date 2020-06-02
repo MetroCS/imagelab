@@ -1,29 +1,32 @@
 package imagelab;
 
 /* ImageLab.java */
-import java.awt.Container;
-import java.awt.FileDialog;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.JFrame;
-import javax.swing.JButton;
+
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JFrame;
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileSystemView;
+import java.awt.FileDialog;
+import java.awt.Container;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
+
 /**
- *  ImageLab is a platform for image filter development.  ImageLab
- *  begins by building a menu of all available filters (those .class files
- *  that implement the {@see ImageFilter ImageFilter} interface).
- *  [TODO: User interface to allow chosing directory to search for filters.
- *  [TODO: User interface to allow displaying images a line or pixel at a time.
- *  @author Dr. Aaron Gordon
- *  @author Dr. Jody Paul
- *  @version 1.8.1
+ * ImageLab is a platform for image filter development.  ImageLab
+ * begins by building a menu of all available filters (those .class files
+ * that implement the {@see ImageFilter ImageFilter} interface).
+ * [TODO: User interface to allow chosing directory to search for filters.
+ * [TODO: User interface to allow displaying images a line or pixel at a time.
+ *
+ * @author Dr. Aaron Gordon
+ * @author Dr. Jody Paul
+ * @version 1.8.1
  */
 public class ImageLab {
     /** Version Identification. */
@@ -33,39 +36,52 @@ public class ImageLab {
     public static final String FILTER_DIR = "filters";
 
     /** The application's main frame. */
-    static JFrame frame;
+    private static JFrame frame;
 
     /** Holds all open images (ImgProvider objects). */
-    static List<ImgProvider> images = new ArrayList<ImgProvider>();
+    private static List<ImgProvider> images = new ArrayList<ImgProvider>();
 
     /** The directory that holds filter classes.  (TODO) */
-    static String filterDir = FILTER_DIR;
+    private static String filterDir = FILTER_DIR;
 
     /** Holds the actual filter objects. */
-    static List<ImageFilter> filters;
+    private static List<ImageFilter> filters;
 
     /** The current image provider. */
-    static ImgProvider impro;
+    public static ImgProvider impro;
 
     /** A copy of <CODE>this</CODE>. */
-    static ImageLab theLab;
+    private static ImageLab theLab;
 
     /** Accessible menu bar for ImageLab. */
-    public static JMenuBar menubar;
+    private static JMenuBar menubar;
+
+    /** X-Coordinate for Frame Bounds. */
+    private static final int FRAME_X = 400;
+
+    /** Y-Coordinate for Frame Bounds. */
+    private static final int FRAME_Y = 30;
+
+    /** Width for Frame Bounds. */
+    private static final int FRAME_WIDTH = 300;
+
+    /** Height for Frame Bounds. */
+    private static final int FRAME_HEIGHT = 100;
 
     /**
      * Application entry point.
+     *
      * @param args ignored
      */
-    public static void main(final String [] args) {
+    public static void main(final String[] args) {
         ImageLab ilab = new ImageLab();
     }
 
     /** Constructor. */
     public ImageLab() {
-        theLab  = this;
+        theLab = this;
         filters = new ArrayList<ImageFilter>();
-        frame   = new JFrame(VERSION);
+        frame = new JFrame(VERSION);
         Container cpane = frame.getContentPane();
 
         JButton jButton1 = new javax.swing.JButton();
@@ -78,22 +94,22 @@ public class ImageLab {
         jButton1.setText("Open Image File");
         jButton1.setToolTipText("Select an image file to load");
         jButton1.addActionListener(
-            new ActionListener() {
-                public void actionPerformed(final ActionEvent e) {
-                    ImgProvider improvider;
-                    FileDialog fd;
-                    fd = new FileDialog(frame, "Pick an image", FileDialog.LOAD);
-                    fd.setVisible(true);
-                    String theFile = fd.getFile();
-                    String theDir = fd.getDirectory();
-                    //System.out.println("The file's name is " + theDir + theFile);
-                    improvider = new ImgProvider(theDir + theFile);
-                    improvider.setLab(theLab);
-                    improvider.showImage(theDir + theFile);
-                    images.add(improvider);
-                    impro = improvider;
+                new ActionListener() {
+                    public void actionPerformed(final ActionEvent e) {
+                        ImgProvider improvider;
+                        FileDialog fd;
+                        fd = new FileDialog(frame,
+                        "Pick an image", FileDialog.LOAD);
+                        fd.setVisible(true);
+                        String theFile = fd.getFile();
+                        String theDir = fd.getDirectory();
+                        improvider = new ImgProvider(theDir + theFile);
+                        improvider.setLab(theLab);
+                        improvider.showImage(theDir + theFile);
+                        images.add(improvider);
+                        impro = improvider;
+                    }
                 }
-            }
         );
         //cpane.add(jButton1);
 
@@ -101,22 +117,23 @@ public class ImageLab {
         jButton2.setText("Exit ImageLab");
         jButton2.setToolTipText("Quit ImageLab");
         jButton1.addActionListener(
-            new ActionListener() {
-                public void actionPerformed(final ActionEvent e) {
-                    System.exit(0);
+                new ActionListener() {
+                    public void actionPerformed(final ActionEvent e) {
+                        System.exit(0);
+                    }
                 }
-            }
         );
         //cpane.add(jButton2);
 
         menubar = buildMenus();
         frame.setJMenuBar(menubar);
-        frame.setBounds(400, 30, 300, 100);
+        frame.setBounds(FRAME_X, FRAME_Y, FRAME_WIDTH, FRAME_HEIGHT);
         frame.setVisible(true);
     }
 
     /**
      * Creates the menus for this application.
+     *
      * @return a menu bar populated with menu items
      */
     private JMenuBar buildMenus() {
@@ -135,10 +152,11 @@ public class ImageLab {
         JMenuItem quit = new JMenuItem("Quit", 'Q');
         file.add(quit);
         quit.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent actev) {
-                    System.exit(0);
-                }
-            }
+                                   public void actionPerformed(
+                                       final ActionEvent actev) {
+                                       System.exit(0);
+                                   }
+                               }
         );
         JMenu filter = new JMenu("Filter");
         mbar.add(filter);
@@ -148,10 +166,10 @@ public class ImageLab {
         //System.out.println("**********finding filters***********");
         FileSystemView fsv = FileSystemView.getFileSystemView();
         //File [] fil = fsv.getFiles(new File("."),true);
-        File [] fil = fsv.getFiles(new File(filterDir), true);
+        File[] fil = fsv.getFiles(new File(filterDir), true);
         //System.out.println("Found " + fil.length + " possible filters");
         String clName = " ";        //holds name of class
-        for (int k=0; k<fil.length; k++) {
+        for (int k = 0; k < fil.length; k++) {
             if (fil[k].getName().endsWith("class")) {
                 Class<?> cl;
                 ImageFilter ifilter;
@@ -159,20 +177,18 @@ public class ImageLab {
                     clName = fil[k].getName();
                     int spot = clName.lastIndexOf(".");
                     //clName = clName.substring(0,spot);
-                    clName = "filters." + clName.substring(0,spot);
+                    clName = "filters." + clName.substring(0, spot);
                     //System.out.println("Trying: " + clName);
                     cl = Class.forName(clName);
                     //System.out.println("Class for name is: " + cl);
                     Class<?>[] interfaces = cl.getInterfaces();
-                    //System.out.println("Number of interfaces is " + interfaces.length);
                     boolean isFilter = false;
-                    for (int j=0; j<interfaces.length; j++) {
-                        //System.out.println("------->>>>>>>>>>" + interfaces[j].getName());
-                        isFilter |= interfaces[j].getName().equals("imagelab.ImageFilter");
-                    }//for ja
+                    for (int j = 0; j < interfaces.length; j++) {
+                        isFilter |= interfaces[j].getName().equals(
+                            "imagelab.ImageFilter");
+                    } //for ja
                     if (isFilter) {
                         ifilter = (ImageFilter) cl.getDeclaredConstructor().newInstance();
-                        //System.out.println("This is the one: " + fil[k].getName());
                         filters.add(ifilter);
                         JMenuItem jmi = new JMenuItem(ifilter.getMenuLabel());
                         filter.add(jmi);
@@ -182,17 +198,19 @@ public class ImageLab {
                 } catch (Exception bigEx) {
                     System.err.println("Error in buildMenus, k = " + k);
                     System.err.println(">>> " + bigEx);
-                }//catch
-            }//if
+                } //catch
+            } //if
 
-        }//for k  
+        } //for k
 
         return mbar;
-    }//buildMenus
+    } //buildMenus
 
     /**
      * Return a File menu for a single image.
      * Provides "Play", "Save" and "Close".
+     *
+     * @param who Display Image used for Action Event
      * @return the new File menu
      */
     public static JMenu newFileMenu(final DisplayImage who) {
@@ -200,26 +218,27 @@ public class ImageLab {
         //        JMenuItem open = new JMenuItem("Open",'O');
         //        fileMenu.add(open);
         //        open.addActionListener(makeOpenListener());
-        JMenuItem play = new JMenuItem("Play",'P');
+        JMenuItem play = new JMenuItem("Play", 'P');
         fileMenu.add(play);
         play.addActionListener(makePlayListener());
-        JMenuItem save = new JMenuItem("Save",'S');
+        JMenuItem save = new JMenuItem("Save", 'S');
         fileMenu.add(save);
         save.addActionListener(makeSaveListener());
-        JMenuItem close = new JMenuItem("Close",'C');
+        JMenuItem close = new JMenuItem("Close", 'C');
         fileMenu.add(close);
-        close.addActionListener(new ActionListener(){
-                public void actionPerformed(ActionEvent actev) {
-                    who.setVisible(false);
-                    who.byebye();
-                }
-            });
+        close.addActionListener(new ActionListener() {
+            public void actionPerformed(final ActionEvent actev) {
+                who.setVisible(false);
+                who.byebye();
+            }
+        });
         return fileMenu;
     }
 
     /**
      * Return a Filter menu for a single image.
      * Provides access to all filters.
+     *
      * @return the new Filter menu
      */
     public static JMenu newFilterMenu() {
@@ -234,15 +253,17 @@ public class ImageLab {
 
     /**
      * Builds a dedicated ActionListener for a specific ImageFilter.
-     * @param imf the ImageFilter for which to make the ActionListener 
+     *
+     * @param imf the ImageFilter for which to make the ActionListener
+     * @return a dedicated ActionListener for the given ImageFilter
      */
-    public static ActionListener makeActionListener (ImageFilter imf) {
+    public static ActionListener makeActionListener(final ImageFilter imf) {
         final ImageFilter theFilter = imf;
         final JFrame myframe = frame;
         return new ActionListener() {
-            public void actionPerformed(ActionEvent ev) {
+            public void actionPerformed(final ActionEvent ev) {
                 if (impro == null) {
-                    JOptionPane.showMessageDialog(myframe,"You must first select an image");
+                    JOptionPane.showMessageDialog(myframe, "You must first select an image");
                     return;
                 }
                 //System.out.println("Using impro number " + impro.getid());
@@ -250,79 +271,91 @@ public class ImageLab {
                 impro = theFilter.getImgProvider();
                 impro.setLab(theLab);
                 images.add(impro);
-            }};
-    }//makeActionListener
+            }
+        };
+    } //makeActionListener
 
     /**
      * Create an ActionListener for opening an image file.
+     *
+     * @return the ActionListener used to perform opening the image file
      */
     public static ActionListener makeOpenListener() {
-        return new ActionListener() {       
-            public void actionPerformed(ActionEvent e) {
-                ImgProvider improvider;                 //an imgProvider to hold the image
+        return new ActionListener() {
+            public void actionPerformed(final ActionEvent e) {
+                ImgProvider improvider; // Hold the image
                 FileDialog fd;
-                fd = new FileDialog(frame,"Pick an image",FileDialog.LOAD);
+                fd = new FileDialog(frame, "Pick an image", FileDialog.LOAD);
                 fd.setVisible(true);
                 String theFile = fd.getFile();
                 String theDir = fd.getDirectory();
                 //System.out.println("The file's name is " + theDir + theFile);
                 improvider = new ImgProvider(theDir + theFile);
                 improvider.setLab(theLab);
-                improvider.showImage(theDir + theFile); 
+                improvider.showImage(theDir + theFile);
                 images.add(improvider);
-                impro = improvider;             //current image provider is set
-            }//actionPerformed
+                impro = improvider; //current image provider is set
+            } //actionPerformed
         };
-    }// makeOpenListener
+    } // makeOpenListener
 
-    /** 
+    /**
      * Marks an image as the one in focus.
+     *
      * @param ip The ImgProvider responsible for the image
      */
-    public void setActive(ImgProvider ip) {
+    public void setActive(final ImgProvider ip) {
         impro = ip;
         //System.out.println("Setting impro to " + impro.getid());
-    }//setActive
+    } //setActive
 
-    /** 
+    /**
      * Marks an image as no longer the focus.
+     *
      * @param ip The ImgProvider responsible for the image
      */
-    public void setInactive(ImgProvider ip) {
-        if (impro == ip) impro = null;
-    }//setInactive
+    public void setInactive(final ImgProvider ip) {
+        if (impro == ip) {
+            impro = null;
+        }
+    } //setInactive
 
     /**
      * Create an ActionListener for rendering an image in sound.
+     *
+     * @return the ActionListener once the image in sound is rendered
      */
     public static ActionListener makePlayListener() {
         final JFrame myframe = frame;
-        return new ActionListener() {       
-            public void actionPerformed(ActionEvent e) {
-                ImgProvider improvider = impro;  //The imgProvider holding the image
+        return new ActionListener() {
+            public void actionPerformed(final ActionEvent e) {
+                //The imgProvider holding the image
+                ImgProvider improvider = impro;
                 if (improvider == null) {
-                    JOptionPane.showMessageDialog(myframe,"First select the image to play");
+                    JOptionPane.showMessageDialog(myframe, "First select the image to play");
                     return;
-                }//if
+                } //if
                 improvider.play();
-            }//actionPerformed
-        };//new ActionListener
-    }//makePlayListener
+            } //actionPerformed
+        }; //new ActionListener
+    } //makePlayListener
 
     /**
      * Create an ActionListener for saving an image to a file.
+     *
+     * @return an ActionListener that saves the image to the file
      */
     public static ActionListener makeSaveListener() {
         final JFrame myframe = frame;
-        return new ActionListener() {       
-            public void actionPerformed(ActionEvent e) {
-                ImgProvider improvider = impro;         //an imgProvider to hold the image
+        return new ActionListener() {
+            public void actionPerformed(final ActionEvent e) {
+                ImgProvider improvider = impro; // Hold the image.
                 if (improvider == null) {
-                    JOptionPane.showMessageDialog(myframe,"Select the image to save");
+                    JOptionPane.showMessageDialog(myframe, "Select the image to save");
                     return;
-                }//if
+                } //if
                 improvider.save();
-            }//actionPerformed
-        };//new ActionListener
-    }//makeSaveListener
-}//ImageLab
+            } //actionPerformed
+        }; //new ActionListener
+    } //makeSaveListener
+} //ImageLab

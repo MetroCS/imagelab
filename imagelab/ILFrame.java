@@ -1,10 +1,11 @@
 package imagelab;
 
-import java.awt.Color;
 import javax.swing.JFrame;
+import java.awt.Color;
 
 /**
  * Graphics frame used to display an image.
+ *
  * @author Dr. Jody Paul
  * @version 1.1
  */
