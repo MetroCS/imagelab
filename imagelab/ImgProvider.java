@@ -94,7 +94,7 @@ public class ImgProvider extends JComponent {
     }
 
     /**
-     * Create a B&W image object based on the parameter.
+     * Create a black and white image object based on the parameter.
      * Uses the instance variable pix as destination.
      *
      * @param image 2D array of black-and-white pixel values (0-255)
