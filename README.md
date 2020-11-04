@@ -13,6 +13,34 @@ The __filter__ package is generally provided as a folder with source (`.java`) a
 
 A sample set of images are provided in an __"images"__ directory.
 
+## Creating an executable jar file
+The project is already set up using the gradle wrapper so we can just use that to create the jar file.
+1. Using the command line interface, change to the project's root directory.
+2. Execute the command `./gradlew build`
+3. This will build/rebuild the jar file using all the required dependencies.
+4. The new jar file will be named "imagelab.jar" and it will be located in the project's root directory.
+
+More information on gradle can be found [here](https://docs.gradle.org/current/userguide/userguide.html) and more information on the gradle wrapper can be found [here](https://docs.gradle.org/current/userguide/gradle_wrapper.html).
+
+If there is no automated build environment set up, the jar file can be created using `jar`.
+1. Using the command line interface, change to the project's root directory.
+2. Execute the command `javac Run.java` to compile the Run.java file.
+3. Execute the command `javac *.java` in the package directories to compile/recompile those package java files. The package directories for this project will be the sound and imagelab directories.
+4. In the root directory execute the command `echo Main-Class: Run > MANIFEST.MF` to create the manifest file you will use for making the jar.
+5. Create the jar using the command `jar cfm imagelab.jar MANIFEST.MF *.class sound/*.class imagelab/*.class`
+6. The new jar file will be named "imagelab.jar" and it will be located in the project's root directory.
+
+More information on creating the jar can be found [here](https://docs.oracle.com/javase/tutorial/deployment/jar/build.html) and more information about java commands can be found [here.](https://docs.oracle.com/en/java/javase/15/docs/specs/man/index.html)
+
+The executable jar file can also be created within an IDE. Some specific examples from popular IDE's can be found here:
+- [Eclipse](https://support.smartbear.com/alertsite/docs/monitors/web/selenium/export-eclipse-java-project-as-runnable-jar.html)
+- [JDeveloper](https://www.albinsblog.com/2014/12/building-executable-jar-file-with.html)
+- [IntelliJ](https://www.jetbrains.com/help/idea/compiling-applications.html#package_into_jar)
+- [BlueJ](https://bluej.org/tutorial/tutorial-v4.pdf)
+- [NetBeans](https://netbeans.org/kb/articles/javase-deploy.html)
+- [VS Code](https://code.visualstudio.com/docs/java/java-project)
+- [DRJava](http://drjava.org/index.php?page=docs/user/ch04.html)
+
 ## To use from command line:  
 * Make sure the __filters__ directory is _in the same directory_ as the __imagelab.jar__ file.
 * Then issue the command  
