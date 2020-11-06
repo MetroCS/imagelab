@@ -22,6 +22,8 @@ repositories {
 }
 
 dependencies {
+    implementation 'junit:junit:4.12'
+
     // These dependencies are used by the application.
     // implementation 'com.google.guava:guava:28.0-jre'
 
@@ -36,6 +38,12 @@ dependencies {
 // Add source code directories
 sourceSets {
     main {
+        java {
+            srcDirs('imagelab','filters','sound',"${project.projectDir}")
+        }
+    }
+    
+    test {
         java {
             srcDirs('imagelab','filters','sound',"${project.projectDir}")
         }
@@ -57,7 +65,10 @@ jar {
     }
 }
 
-
+test {
+    useJUnit()
+    reports.html.destination = file("$buildDir/reports/JUnit")
+}
 
 // Define jacoco version to be used
 jacoco {
