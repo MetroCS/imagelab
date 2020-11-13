@@ -50,6 +50,46 @@ An alternative command is:
 `java -cp ".:imagelab.jar" Run`  
 Note that on Windows platforms, the ":" character in the classpath must be changed to the ";" character.
 
+## Build Instructions 
+
+### Before You Build
+- Install Gradle
+  * Gradle is the tool used in this repository for automation of the build. Please visit https://gradle.org/ for specific installation instructions.
+
+### Using Gradle
+To build the project use the command:  
+   `./gradlew build`
+
+#### Key Commands
+  * Display the full list of commands that can be excecuted  
+    * `./gradlew tasks --all`  
+  * Run the program  
+    * `./gradlew run`  
+  * Compile the main java source  
+    * `./gradlew compileJava`  
+  * Delete the build directory  
+    * `./gradlew clean` 
+  * Assemble the main classes  
+    * `./gradlew classes`    
+  * Assemble and test the project
+    * `./gradlew build`   
+  * Assemble the test classes  
+    * `./gradlew testClasses`  
+  * Generate checkstyle reports 
+    * `./gradlew checkstyle`  
+  * Run unit tests
+    * `./gradlew test`  
+  * Compile unit tests  
+    * `./gradlew compileTestJava`   
+  * Run all checks 
+    * `./gradlew check`   
+
+
+### Resources and References
+
+https://gradle.org/guides/
+
+
 ## License
 
 ImageLab is a framework for student exploration of image processing.  
@@ -72,3 +112,4 @@ along with this program.  If not, see https://www.gnu.org/licenses/
 ___
 
 Project Website: https://metrocs.github.io/imagelab/
+
